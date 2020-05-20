@@ -36,7 +36,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/v1/fileupload")
 @Api(tags = {"fileupload api"}, value = "fileupload")
 @SwaggerDefinition(tags = {
-    @Tag(name = "fileupload api", description = "apis for file upload")
+	@Tag(name = "fileupload api", description = "apis for file upload")
 })
 public class FileUploadController {
 
@@ -50,7 +50,6 @@ public class FileUploadController {
 
 	@GetMapping("/")
 	public String listUploadedFiles(Model model) throws IOException {
-
 		model.addAttribute("files", storageService.loadAll().map(
 				path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
 						"serveFile", path.getFileName().toString()).build().toUri().toString())
@@ -62,10 +61,9 @@ public class FileUploadController {
 	@GetMapping("/files/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
 		Resource file = storageService.loadAsResource(filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
+			"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
 
 	@ApiOperation(value = "upload single data import file")
@@ -74,9 +72,7 @@ public class FileUploadController {
 		method = RequestMethod.POST
 	)
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-
 		storageService.store(file);
-
 		return "redirect:/";
 	}
 
