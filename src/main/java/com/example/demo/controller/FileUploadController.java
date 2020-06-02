@@ -73,7 +73,7 @@ public class FileUploadController {
 	)
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 		storageService.store(file);
-		return "redirect:/";
+		return "success";
 	}
 
 	@ExceptionHandler(StorageFileNotFoundException.class)
